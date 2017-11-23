@@ -5,6 +5,7 @@ PREFIX foaf: <http://xmlns.com/foaf/spec/>
 PREFIX schema: <http://schema.org/>
 PREFIX rdf: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX igeo: <http://rdf.insee.fr/def/geo#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
 CONSTRUCT {
   ?URI_Record rdf:type schema:dataset;
@@ -17,11 +18,19 @@ CONSTRUCT {
     dbo:numberOfStudents ?effectif;
     dbo:educationSystem ?secteur_de_l_etablissement;
     schema:EducationalOrganization ?rgp_formations_ou_etablissements;
-    dbo:formationYear ?rentree;
-} 
-FROM <file:data_reg.csv> 
+    dbo:formationYear ?rentree.
+    
+    #liens avec les datas
+    ?reg_id owl:sameAs ?code_region_hippo;
+}
 WHERE {
-  BIND (URI(CONCAT('http://schema.org/record_id', ?recordid)) AS ?URI_Record)
+  BIND (URI(CONCAT('http://schema.org/record_id', ?recordid)) AS ?URI_Record) .
+  BIND(URI(
+                CONCAT("https://ex.org/data/hippo",
+                    REPLACE(?code_region, " ", "_")
+                )
+        ) AS ?code_region_hippo).
+
   BIND (xsd:integer(?effectif_ing) AS ?EFFECTIF_ING)
   BIND (xsd:integer(?effectif_dut) AS ?EFFECTIF_DUT)
 }
