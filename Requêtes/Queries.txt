@@ -1,0 +1,125 @@
+# tarql
+
+./tarql --ntriples csv_to_rdf.sparql data_effectif-etudiant-PdL.csv
+
+# en xml rdf
+
+rdf-translator.appspot.com
+
+# fuseki (apache installed)
+
+java -jar fuseki-server.jar
+
+localhost:3030
+
+#Requêtes
+
+--Faire la somme de tous les étudiants--
+
+ 
+PREFIX ex:<http://ex.org/a#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+
+SELECT (SUM(xsd:integer(?nb_etu)) as ?nb_tot)
+WHERE 
+{ 
+	?x rdf:type ex:Record .
+	?x ex:effectif ?nb_etu
+}
+
+--Effectif féminin-- ! Changement prefix dans le xml/rdf
+
+PREFIX ex:<http://ex.org/a#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/spec/>
+
+SELECT (SUM(xsd:integer(?nb_etu)) as ?nb_tot)
+WHERE 
+{ 
+	?x rdf:type ex:Record .
+	?x foaf:gender "Feminin" .
+	?x ex:effectif ?nb_etu
+}
+
+--Les inscrits par établissement--
+
+PREFIX ex:<http://ex.org/a#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/spec/>
+
+SELECT ?x ?etablissement ?y
+WHERE 
+{ 
+	?x rdf:type ex:Record .
+	?x ex:rgp_formations_ou_etablissements  ?etablissement
+	?x xsd:integer ?y
+}
+ORDER BY ?etablissement
+
+--Suivant les années, les écoles qui ont des ingés, écoles publiques ou privées--
+
+PREFIX ex:<http://ex.org/a#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/spec/>
+PREFIX dbpediaowl: <http://dbpedia.org/ontology/>
+
+SELECT DISTINCT ?x ?annee ?type_formation ?secteur
+WHERE 
+{ 
+	?x rdf:type ex:Record .
+	?x dbpediaowl:year ?annee .
+	?x ex:a_des_effectifs_ing "oui" .
+	?x ex:rgp_formations_ou_etablissements ?type_formation .
+	?x ex:secteur_de_l_etablissement ?secteur
+}
+ORDER BY ?annee
+
+--Nombre de formation qui forment des ingés en 2015--
+
+PREFIX ex:<http://ex.org/a#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/spec/>
+PREFIX dbpediaowl: <http://dbpedia.org/ontology/>
+
+SELECT DISTINCT (COUNT(?x) as ?nombre_de_formation_qui_forment_des_inges_en_2015)
+WHERE 
+{ 
+	?x rdf:type ex:Record .
+	?x dbpediaowl:year "2015" .
+	?x ex:a_des_effectifs_ing "oui" 
+}
+
+--Nb homme vs femmes --
+
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/spec/>
+PREFIX dbpediaowl: <http://dbpedia.org/ontology/>
+
+SELECT (sum(if(?gender="Masculin",1,0)) as ?nb_h) (sum(if(?gender="Feminin",1,0)) as ?nb_f)
+WHERE 
+{ 
+	?x rdf:type ex:Record .
+	?x foaf:gender ?gender .
+}
+
+--On peut rajouter par année
+
+PREFIX ex:<http://ex.org/a#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/spec/>
+PREFIX dbpediaowl: <http://dbpedia.org/ontology/>
+
+SELECT (sum(if(?gender="Masculin",1,0)) as ?nb_h) (sum(if(?gender="Feminin",1,0)) as ?nb_f)
+WHERE 
+{ 
+	?x rdf:type ex:Record .
+	?x dbpediaowl:year "2014" .
+	?x foaf:gender ?gender .
+}

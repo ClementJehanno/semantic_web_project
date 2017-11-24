@@ -1,0 +1,25 @@
+PREFIX  rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#/>
+PREFIX  dbo:    <http://dbpedia.org/ontology/>
+PREFIX  gn:     <http://www.geonames.org/ontology#>
+PREFIX  dc:     <http://purl.org/dc/elements/1.1/>
+
+# Value
+CONSTRUCT {
+    ?URI a dbo:Statistic ;
+    gn:postalcode ?code_region ;
+    gn:name ?URI_REGION_HIPPO ;
+    dbo:sex ?Sexe ;
+    dbo:Organisation ?code_type_uai ;
+    dbo:alias ?type_administration ;
+    dbo:year ?Annee ;
+    dbo:roleInEvent ?type_personnel ;
+    dc:type ?Indicateur ;
+    dbo:status ?etat_donnees.
+
+    ?URI_REGION_HIPPO rdf:type gn:name;
+}
+FROM <file:dataset_hippo.csv>
+WHERE {
+    BIND (URI(?Valeur) as ?URI)
+    BIND (URI(CONCAT("https://ex.org/hippo/region/", REPLACE(?Region, " ","_"))) AS ?URI_REGION_HIPPO )
+}
