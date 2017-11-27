@@ -1,0 +1,43 @@
+
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+
+
+:cpr				a						void:Dataset;
+					dcterms:title 			"PCR????" ;
+					dcterms:description 	"Effectifs étudiants en études sup" ;
+					void:exampleResource 	<????> ;
+					foaf:homepage	       	<https://ex.org/cpr????>;
+					dcterms:contributor     :Univ_Nantes;
+					dcterms:publisher		:Romain_Duclos;
+					dcterms:publisher		:Clement_Jehanno;
+					dcterms:publisher       :Pierre_Caillaud;
+					dcterms:created        	"2017-11-27"^^xsd:date ;
+					dcterms:modified        "2017-11-27"^^xsd:date ;
+					dcterms:license 		<https://www.etalab.gouv.fr/licence-ouverte-open-licence> ;
+					void:feature			<http://www.w3.org/ns/formats/Turtle>;
+					void:triples         	????.
+
+:Univ_Nantes		a						foaf:Organization;
+					rdfs:label				"Université de Nantes";
+					foaf:homepage			<http://www.univ-nantes.fr>.
+
+:Clement_Jehanno	a						foaf:Person;
+					rdfs:label				"Clément Jehanno";
+					foaf:mbox				<clement.jehanno@univ-nantes.fr>.
+
+:Romain_Duclos		a						foaf:Person;
+					rdfs:label				"Romain Duclos";
+					foaf:mbox				<romain.duclos@univ-nantes.fr>.
+
+:Pierre_Caillaud    a						foaf:Person;
+					rdfs:label				"Pierre Caillaud";
+					foaf:mbox				<pierre.caillaud@univ-nantes.fr>.
+
+:cpr  				a     					void:Linkset ;
+					void:target              datasetLoic???? ;
+					void:target              datasetHipo????;
+					void:linkedPredicate     owl:sameAs.
