@@ -1,0 +1,67 @@
+PREFIX igeo: <http://rdf.insee.fr/def/geo#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX schema: <http://schema.org/>
+PREFIX frapo: <http://purl.org/cerif/frapo/>
+
+
+SELECT DISTINCT ?URI_REGION_HIPPO ?URI_Region_NOUS ?URI_Code_Region_NOUS ?URI_Code_Region 
+WHERE {
+?a a schema:dataset.
+?a igeo:nom ?URI_Region_NOUS.
+?a igeo:codeRegion ?URI_Code_Region_NOUS.
+?URI_Region_NOUS owl:sameAs ?URI_REGION_HIPPO .
+?URI_Code_Region_NOUS owl:sameAs ?URI_Code_Region
+SERVICE<http://localhost:3030/datas_hippo>{
+  ?b a dbo:Statistic;
+      gn:name ?URI_REGION_HIPPO
+}
+SERVICE<http://localhost:3030/datas_loic>{
+  ?c dbo:code ?URI_Code_Region
+}
+}
+LIMIT 25
+
+
+
+---------------------------------------------------------------------------------------
+
+PREFIX igeo: <http://rdf.insee.fr/def/geo#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX schema: <http://schema.org/>
+PREFIX frapo: <http://purl.org/cerif/frapo/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+
+
+SELECT DISTINCT ?nom_region ?valeur_budget ?info_budget ?code_type_uai
+WHERE {
+ ?a a schema:dataset.
+ ?a igeo:nom ?nom_region.
+ ?a igeo:codeRegion ?URI_Code_Region_NOUS.
+ ?URI_Code_Region_NOUS owl:sameAs ?URI_Code_Region.
+ ?URI_Region_NOUS owl:sameAs ?URI_REGION_HIPPO .
+ SERVICE<http://localhost:3030/datas_loic>{
+   ?c dbo:code ?URI_Code_Region .
+   ?c frapo:BudgetedAmount ?valeur_budget.
+   ?c frapo:BudgetInformation ?info_budget
+ }
+ SERVICE<http://localhost:3030/datas_hippo>{
+  ?b a dbo:Statistic;
+      	gn:name ?URI_REGION_HIPPO ;
+        dbo:Organisation ?code_type_uai ;
+    	dbo:alias ?type_administration ;
+    	dbo:year ?Annee ;
+    	dbo:roleInEvent ?type_personnel ;
+    	dc:type ?Indicateur ;
+    	dbo:status ?etat_donnees
+ }
+}
+LIMIT 25
+
+
+-----------------------------------------------------------------------------------

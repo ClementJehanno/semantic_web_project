@@ -1,0 +1,94 @@
+PREFIX igeo: <http://rdf.insee.fr/def/geo#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX schema: <http://schema.org/>
+PREFIX frapo: <http://purl.org/cerif/frapo/>
+
+
+SELECT DISTINCT ?nom_region ?valeur_budget ?info_budget  
+WHERE {
+ ?a a schema:dataset.
+ ?a igeo:nom ?nom_region.
+ ?a igeo:codeRegion ?URI_Code_Region_NOUS.
+ ?URI_Code_Region_NOUS owl:sameAs ?URI_Code_Region
+ SERVICE<http://localhost:3030/datas_loic>{
+   ?c dbo:code ?URI_Code_Region .
+   ?c frapo:BudgetedAmount ?valeur_budget.
+   ?c frapo:BudgetInformation ?info_budget
+ }
+}
+LIMIT 25
+
+
+
+-----------------------------------------------
+
+
+
+
+PREFIX igeo: <http://rdf.insee.fr/def/geo#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX schema: <http://schema.org/>
+PREFIX frapo: <http://purl.org/cerif/frapo/>
+
+
+SELECT DISTINCT ?nom_region ?valeur_budget ?info_budget ?effectif ?secteur_de_l_etablissement ?rgp_formations_ou_etablissements ?rentree
+WHERE {
+ ?a a schema:dataset.
+ ?a igeo:nom ?nom_region.   
+ ?a dbo:numberOfStudents ?effectif.
+ ?a dbo:educationSystem ?secteur_de_l_etablissement.
+ ?a schema:EducationalOrganization ?rgp_formations_ou_etablissements.
+ ?a dbo:formationYear ?rentree.
+ ?a igeo:codeRegion ?URI_Code_Region_NOUS.
+ ?URI_Code_Region_NOUS owl:sameAs ?URI_Code_Region
+ SERVICE<http://localhost:3030/datas_loic>{
+   ?c dbo:code ?URI_Code_Region .
+   ?c frapo:BudgetedAmount ?valeur_budget.
+   ?c frapo:BudgetInformation ?info_budget
+ }
+}
+LIMIT 25
+
+
+--------------------------------------------------------
+
+
+
+
+Faire une année = 2011 ou autre
+
+PREFIX igeo: <http://rdf.insee.fr/def/geo#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX schema: <http://schema.org/>
+PREFIX frapo: <http://purl.org/cerif/frapo/>
+
+
+SELECT DISTINCT ?nom_region ?valeur_budget ?info_budget ?effectif ?secteur_de_l_etablissement ?rgp_formations_ou_etablissements ?rentree
+WHERE {
+ ?a a schema:dataset.
+ ?a igeo:nom ?nom_region.   
+ ?a dbo:numberOfStudents ?effectif.
+ ?a dbo:educationSystem ?secteur_de_l_etablissement.
+ ?a schema:EducationalOrganization ?rgp_formations_ou_etablissements.
+ ?a dbo:formationYear ?rentree.
+ ?a igeo:codeRegion ?URI_Code_Region_NOUS.
+ ?URI_Code_Region_NOUS owl:sameAs ?URI_Code_Region
+ SERVICE<http://localhost:3030/datas_loic>{
+   ?c dbo:code ?URI_Code_Region .
+   ?c frapo:BudgetedAmount ?valeur_budget.
+   ?c frapo:BudgetInformation ?info_budget
+ }
+  FILTER(?rentree = "2015")
+}
+LIMIT 25
+
+
