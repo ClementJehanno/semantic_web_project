@@ -18,7 +18,7 @@
                     dcterms:modified         "2017-11-27"^^xsd:date ;
                     dcterms:license          <https://www.etalab.gouv.fr/licence-ouverte-open-licence> ;
                     void:feature             <http://www.w3.org/ns/formats/Turtle>;
-                    void:triples             ????.
+                    void:triples             9031.
 
 :Univ_Nantes        a                        foaf:Organization;
                     rdfs:label               "Université de Nantes";
