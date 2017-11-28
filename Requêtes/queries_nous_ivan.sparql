@@ -1,0 +1,23 @@
+PREFIX igeo: <http://rdf.insee.fr/def/geo#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX schema: <http://schema.org/>
+PREFIX frapo: <http://purl.org/cerif/frapo/>
+
+
+SELECT DISTINCT ?URI_Code_Region_NOUS ?URI_Code_Region_IVAN  
+WHERE {
+ ?a a schema:dataset.
+ ?a igeo:nom ?nom_region.
+ ?a igeo:codeRegion ?URI_Code_Region_NOUS.
+  ?a dbo:formationYear ?rentree.
+ ?URI_Code_Region_NOUS owl:sameAs ?URI_Code_Region_IVAN.
+ SERVICE<http://localhost:3030/datas_ivan>{
+   ?b a frapo:Funding;
+      dbo:Place [frapo:hasCode ?URI_Code_Region_IVAN]
+ }
+  FILTER(?rentree = "2015")
+}
+LIMIT 25
