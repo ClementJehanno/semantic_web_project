@@ -7,10 +7,9 @@
 
 
 :cpr                a                        void:Dataset;
-                    dcterms:title            "PCR????" ;
-                    dcterms:description      "Effectifs étudiants en études sup" ;
-                    void:exampleResource     <????> ;
-                    foaf:homepage            <https://ex.org/cpr????>;
+                    dcterms:title            "Effectifs Etudiants Loire-Atlantique";
+                    dcterms:description      "Effectifs étudiants en études sup";
+                    foaf:homepage            <https://ex.org/cpr>;
                     dcterms:contributor      :Univ_Nantes;
                     dcterms:publisher        :Romain_Duclos;
                     dcterms:publisher        :Clement_Jehanno;
@@ -29,7 +28,7 @@
                     rdfs:label               "Clément Jehanno";
                     foaf:mbox                <clement.jehanno@univ-nantes.fr>.
 
-:Romain_Duclos        a                      foaf:Person;
+:Romain_Duclos      a                        foaf:Person;
                     rdfs:label               "Romain Duclos";
                     foaf:mbox                <romain.duclos@univ-nantes.fr>.
 
@@ -37,7 +36,7 @@
                     rdfs:label               "Pierre Caillaud";
                     foaf:mbox                <pierre.caillaud@univ-nantes.fr>.
 
-:cpr                  a                      void:Linkset ;
-                    void:target              datasetLoic???? ;
-                    void:target              datasetHipo????;
+:cpr                a                        void:Linkset ;
+                    void:target              datas_loic;
+                    void:target              datas_hippo;
                     void:linkedPredicate     owl:sameAs.
