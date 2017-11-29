@@ -7,8 +7,10 @@
 
 
 :cpr                a                        void:Dataset;
-                    dcterms:title            "Effectifs Etudiants Loire-Atlantique";
-                    dcterms:description      "Effectifs étudiants en études sup";
+                    dcterms:title            "Effectifs étudiants en études sup Pays de la Loire";
+                    dcterms:description      "Effectifs d'étudiants inscrits dans les établissements et les formations de l'enseignement supérieur en Pays de la Loire";
+                    void:exampleResource     <http://schema.org/record_id/dde666f267c6a7b9002efd3b9c17584cee143e86>;
+                    void:exampleResource     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
                     foaf:homepage            <https://ex.org/cpr>;
                     dcterms:contributor      :Univ_Nantes;
                     dcterms:publisher        :Romain_Duclos;
@@ -39,4 +41,5 @@
 :cpr                a                        void:Linkset ;
                     void:target              datas_loic;
                     void:target              datas_hippo;
+                    void:target              datas_ivan;
                     void:linkedPredicate     owl:sameAs.
