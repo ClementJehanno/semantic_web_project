@@ -1,0 +1,48 @@
+@prefix ns:   <http://www.example.org/ns#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix dbo:  <http://dbpedia.org/ontology/>.
+
+foaf:gender a rdf:Property;
+        rdfs:domain   foaf:Agent;
+        rdfs:range rdfs:Literal .
+
+igeo:subdivisionDirecte   a  owl:ObjectProperty ;
+        rdfs:domain         igeo:PaysOuTerritoire ;
+        rdfs:range          igeo:PaysOuTerritoire ;
+        rdfs:subPropertyOf  igeo:subdivision .
+
+igeo:codeRegion  a          owl:DatatypeProperty ;
+        rdfs:domain         igeo:Region ;
+        rdfs:range          xsd:token ;
+        rdfs:subPropertyOf  igeo:codeINSEE .
+
+igeo:nom  a                 owl:DatatypeProperty ;
+        rdfs:domain         igeo:PaysOuTerritoire ;
+        rdfs:range          rdfs:Literal ;
+        rdfs:subPropertyOf  rdfs:label .
+
+ex:effectif_ing rdf:type owl:DatatypeProperty;
+                rdfs:range xsd:nonNegativeInteger;
+                rdfs:subPropertyOf ex:effectif_etu.
+ex:effectif_dut rdf:type owl:DatatypeProperty;
+                rdfs:range xsd:nonNegativeInteger;
+                rdfs:subPropertyOf ex:effectif_etu.
+ex:effectif_etu rdf:type  owl:DatatypeProperty;
+                rdfs:domain   schema:dataset.
+
+dbo:numberOfStudents rdf:type owl:DatatypeProperty;
+                     rdf:type  rdf:Property;
+                     rdfs:domain dbo:EducationalInstitution;
+                     rdfs:range xsd:nonNegativeInteger.
+
+dbo:educationSystem rdf:type owl:DatatypeProperty;
+                     rdf:type  rdf:Property;
+                     rdfs:domain dbo:EducationalInstitution.
+
+dbo:formationYear rdf:type owl:DatatypeProperty;
+                     rdf:type  rdf:Property;
+                     rdfs:domain dbo:Organisation;
+                     rdfs:range xsd:gYear.
