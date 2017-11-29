@@ -31,7 +31,7 @@ CONSTRUCT {
         owl:sameAs ?URI_Code_Region_LOIC;
         owl:sameAs ?URI_Code_Region_IVAN.
 }
-FROM <file:data_clem.csv>
+FROM <file:data_base.csv>
 WHERE {
   BIND (URI(CONCAT('http://schema.org/record_id/', ?recordid)) AS ?URI_Record) .
 

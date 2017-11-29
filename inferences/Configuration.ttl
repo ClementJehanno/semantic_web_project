@@ -21,22 +21,17 @@ ja:defaultGraph
 a ja:InfModel ;
 
     #Reference to model.ttl file
-    ja:content [ja:externalContent &lt;file:///C:/apache-jena-fuseki-2.4.1/run/databases/model.ttl&gt; ] ;
+    ja:content [ja:externalContent <file:/home/romain/Programmes/apache-jena-fuseki-3.4.0/run/databases/model.ttl> ] ;
 
     #Reference to data.ttl file
-    ja:content [ja:externalContent &lt;file:///C:/apache-jena-fuseki-2.4.1/run/databases/data.ttl&gt; ] ;
+    ja:content [ja:externalContent <file:/home/romain/Programmes/apache-jena-fuseki-3.4.0/run/databases/nos_datas.ttl> ] ;
 
-    #Disable OWL-based reasoner
-    #ja:reasoner [ja:reasonerURL &lt;http://jena.hpl.hp.com/2003/OWLFBRuleReasoner&gt;] ;
-
-    #Disable RDFS-based reasoner
-    #ja:reasoner [ja:reasonerURL &lt;http://jena.hpl.hp.com/2003/RDFSExptRuleReasoner&gt;] ;
 
     #Enable Jena Rules-based reasoner and we point the location of myrules.rules file
     ja:reasoner [
-        ja:reasonerURL &lt;http://jena.hpl.hp.com/2003/GenericRuleReasoner&gt; ;
-        ja:rulesFrom &lt;file:///C:/apache-jena-fuseki-2.4.1/run/databases/myrules.rules&gt; ;
+        ja:reasonerURL <http://jena.hpl.hp.com/2003/GenericRuleReasoner> ;
+        ja:rulesFrom <file:/home/romain/Programmes/apache-jena-fuseki-3.4.0/run/databases/rules.rules>
     ] ;
   ] ;
  .
-  </pre>
+
