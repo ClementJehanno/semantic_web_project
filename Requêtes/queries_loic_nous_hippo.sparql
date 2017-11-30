@@ -109,3 +109,49 @@ WHERE {
   	FILTER(?anneeLoic="2011"^^xsd:gYear)
 }
 LIMIT 25
+
+
+---------------------------------------------------------------------------------
+
+PREFIX igeo: <http://rdf.insee.fr/def/geo#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX schema: <http://schema.org/>
+PREFIX frapo: <http://purl.org/cerif/frapo/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+
+SELECT DISTINCT ?nom_region (SUM(?valeur_budget) as ?budget_par_region) ?info_budget
+WHERE {
+ ?a a schema:dataset.
+ ?a igeo:nom ?nom_region.
+ ?a igeo:codeRegion ?URI_Code_Region_NOUS.
+ ?a dbo:formationYear ?rentree.
+ ?URI_Code_Region_NOUS owl:sameAs ?URI_Code_Region.
+ ?URI_Region_NOUS owl:sameAs ?URI_REGION_HIPPO .
+ SERVICE<http://localhost:3030/datas_loic>{
+   ?c dbo:code ?URI_Code_Region .
+   ?c frapo:BudgetedAmount ?valeur_budget.
+   ?c frapo:BudgetInformation ?info_budget.
+   ?c dbo:year ?anneeLoic
+ }
+ SERVICE<http://localhost:3030/datas_hippo>{
+  ?b a dbo:Statistic;
+      	gn:name ?URI_REGION_HIPPO ;
+        dbo:Organisation ?code_type_uai ;
+    	dbo:alias ?type_administration ;
+    	dbo:year ?Annee ;
+    	dbo:roleInEvent ?type_personnel ;
+    	dc:type ?Indicateur ;
+    	dbo:status ?etat_donnees;
+    	dbo:year ?AnneeHippo .
+ }
+	FILTER(?rentree = "2011")
+  	FILTER(?AnneeHippo="2011")
+  	FILTER(?anneeLoic="2011"^^xsd:gYear)
+}
+GROUP BY ?nom_region ?info_budget
+LIMIT 25

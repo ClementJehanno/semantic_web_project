@@ -1,9 +1,12 @@
-@prefix ns:   <http://www.example.org/ns#> .
-@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix owl:  <http://www.w3.org/2002/07/owl#> .
-@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
-@prefix dbo:  <http://dbpedia.org/ontology/>.
+@prefix ex: <http://ex.org/a#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix dbo:<http://dbpedia.org/ontology/>.
+@prefix foaf: <http://xmlns.com/foaf/spec/>.
+@prefix schema: <http://schema.org/>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix igeo: <http://rdf.insee.fr/def/geo#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 
 foaf:gender a rdf:Property;
         rdfs:domain   foaf:Agent;
@@ -27,9 +30,11 @@ igeo:nom  a                 owl:DatatypeProperty ;
 ex:effectif_ing rdf:type owl:DatatypeProperty;
                 rdfs:range xsd:nonNegativeInteger;
                 rdfs:subPropertyOf ex:effectif_etu.
+
 ex:effectif_dut rdf:type owl:DatatypeProperty;
                 rdfs:range xsd:nonNegativeInteger;
                 rdfs:subPropertyOf ex:effectif_etu.
+
 ex:effectif_etu rdf:type  owl:DatatypeProperty;
                 rdfs:domain   schema:dataset.
 

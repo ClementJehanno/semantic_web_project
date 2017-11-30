@@ -12,7 +12,7 @@ WHERE {
  ?a a schema:dataset.
  ?a igeo:nom ?nom_region.
  ?a igeo:codeRegion ?URI_Code_Region_NOUS.
-  ?a dbo:formationYear ?rentree.
+ ?a dbo:formationYear ?rentree.
  ?URI_Code_Region_NOUS owl:sameAs ?URI_Code_Region_IVAN.
  SERVICE<http://localhost:3030/datas_ivan>{
    ?b a frapo:Funding;

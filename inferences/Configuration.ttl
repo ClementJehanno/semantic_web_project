@@ -21,16 +21,16 @@ ja:defaultGraph
 a ja:InfModel ;
 
     #Reference to model.ttl file
-    ja:content [ja:externalContent &lt;file:/home/romain/Programmes/apache-jena-fuseki-3.4.0/run/databases/model.ttl&gt; ] ;
+    ja:content [ja:externalContent <file:/home/ordipass/Documents/Master/Web/apache-jena-fuseki-3.4.0/run/databases/Configuration/model.ttl> ] ;
 
     #Reference to data.ttl file
-    ja:content [ja:externalContent &lt;file:/home/romain/Programmes/apache-jena-fuseki-3.4.0/run/databases/data.ttl&gt; ] ;
+    ja:content [ja:externalContent <file:/home/ordipass/Documents/Master/Web/apache-jena-fuseki-3.4.0/run/databases/Configuration/data.ttl> ] ;
 
 
     #Enable Jena Rules-based reasoner and we point the location of myrules.rules file
     ja:reasoner [
-        ja:reasonerURL &lt;http://jena.hpl.hp.com/2003/GenericRuleReasoner&gt; ;
-        ja:rulesFrom &lt;file:/home/romain/Programmes/apache-jena-fuseki-3.4.0/run/databases/rules.rules&gt; ;
+        ja:reasonerURL <http://jena.hpl.hp.com/2003/GenericRuleReasoner> ;
+        ja:rulesFrom <file:/home/ordipass/Documents/Master/Web/apache-jena-fuseki-3.4.0/run/databases/Configuration/rules.rules> ;
     ] ;
   ] ;
  .
