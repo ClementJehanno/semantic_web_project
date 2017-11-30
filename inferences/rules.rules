@@ -1,13 +1,13 @@
-@prefix ns:   <http://www.example.org/ns# . .
-@prefix ex: <http://ex.org/a# .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema# .
-@prefix dbo:<http://dbpedia.org/ontology/ .
-@prefix foaf: <http://xmlns.com/foaf/spec/ .
-@prefix schema: <http://schema.org/ .
-@prefix rdf: <http://www.w3.org/2000/01/rdf-syntax-ns# .
-@prefix igeo: <http://rdf.insee.fr/def/geo# .
-@prefix owl: <http://www.w3.org/2002/07/owl# .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema# .
+@prefix ns:   	<http://www.example.org/ns#> .
+@prefix ex: 	<http://ex.org/a#> .
+@prefix xsd: 	<http://www.w3.org/2001/XMLSchema#> .
+@prefix dbo:	<http://dbpedia.org/ontology/> .
+@prefix foaf: 	<http://xmlns.com/foaf/spec/> .
+@prefix schema: <http://schema.org/> .
+@prefix rdf: 	<http://www.w3.org/2000/01/rdf-syntax-ns#> .
+@prefix igeo: 	<http://rdf.insee.fr/def/geo#> .
+@prefix owl: 	<http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: 	<http://www.w3.org/2000/01/rdf-schema#> .
 
 
 [ruleTypeEffectif: (?a dbo:numberOfStudents ?effectif) -> (?effectif rdf:type xsd:nonNegativeInteger)] 
