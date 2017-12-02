@@ -20,7 +20,7 @@ CONSTRUCT {
     dbo:numberOfStudents ?EFFECTIF_TOT;
     dbo:educationSystem ?secteur_de_l_etablissement;
     schema:EducationalOrganization ?rgp_formations_ou_etablissements;
-    dbo:formationYear ?rentree.
+    dbo:formationYear ?annee.
     
     #liens avec les datas hyppo
     ?URI_Region_NOUS rdf:type igeo:nom;
@@ -39,6 +39,7 @@ WHERE {
 
   BIND (URI(CONCAT("https://ex.org/nous/region/", REPLACE(?geo_nom, " ","_"))) AS ?URI_Region_NOUS) .
 
+  BIND (xsd:gYear(?rentree) AS ?annee)
 
   
   BIND ((STRAFTER(?geo_id, "R")) AS ?codereg)
