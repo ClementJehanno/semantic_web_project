@@ -17,7 +17,7 @@ CONSTRUCT {
 
     ex:effectif_ing ?EFFECTIF_ING;
     ex:effectif_dut ?EFFECTIF_DUT;
-    dbo:numberOfStudents ?effectif;
+    dbo:numberOfStudents ?EFFECTIF_TOT;
     dbo:educationSystem ?secteur_de_l_etablissement;
     schema:EducationalOrganization ?rgp_formations_ou_etablissements;
     dbo:formationYear ?rentree.
@@ -50,4 +50,5 @@ WHERE {
 
   BIND (xsd:integer(?effectif_ing) AS ?EFFECTIF_ING)
   BIND (xsd:integer(?effectif_dut) AS ?EFFECTIF_DUT)
+  BIND (xsd:integer(?effectif) AS ?EFFECTIF_TOT)
 }
