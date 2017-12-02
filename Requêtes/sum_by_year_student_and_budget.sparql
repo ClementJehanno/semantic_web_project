@@ -1,0 +1,31 @@
+PREFIX igeo: <http://rdf.insee.fr/def/geo#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX schema: <http://schema.org/>
+PREFIX frapo: <http://purl.org/cerif/frapo/>
+PREFIX ex: <http://ex.org/a#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+
+SELECT DISTINCT ?year (SUM(?valeur_budget) as ?budget_region) (SUM(?effIng) AS ?nb_ing) (SUM(?effDut) AS ?nb_dut)
+WHERE {
+   	?x a schema:dataset.
+ 	?x igeo:nom ?nom_region.   
+    ?x dbo:formationYear ?year.
+    ?x ex:effectif_ing ?effIng.
+    ?x ex:effectif_dut ?effDut.
+ 	?x igeo:codeRegion ?URI_Code_Region_NOUS.
+ 	?URI_Code_Region_NOUS owl:sameAs ?URI_Code_Region
+ SERVICE<http://localhost:3030/datas_loic>{
+   	?c dbo:code ?URI_Code_Region .
+   	?c frapo:BudgetedAmount ?valeur_budget.
+	?c dbo:year ?annee
+ 	FILTER(?annee > "2000"^^xsd:gYear)  
+ }
+FILTER(?year > "2000")
+}
+GROUP BY ?year
+ORDER BY ?year
+LIMIT 25
