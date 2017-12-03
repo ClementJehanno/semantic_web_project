@@ -9,23 +9,25 @@ PREFIX ex: <http://ex.org/a#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 
-SELECT DISTINCT ?year (SUM(?valeur_budget) as ?budget_region) (SUM(?effIng) AS ?nb_ing) (SUM(?effDut) AS ?nb_dut)
+SELECT DISTINCT ?annee (SUM(distinct ?valeur_budget) as ?budget_region) (SUM(distinct ?effIng) AS ?nb_ing) (SUM(distinct ?effDut) AS ?nb_dut) (SUM(distinct ?eff) AS ?nb_tot)
 WHERE {
    	?x a schema:dataset.
  	?x igeo:nom ?nom_region.   
-    ?x dbo:formationYear ?year.
+    ?x dbo:formationYear ?annee.
     ?x ex:effectif_ing ?effIng.
     ?x ex:effectif_dut ?effDut.
+  	?x dbo:numberOfStudents ?eff.
  	?x igeo:codeRegion ?URI_Code_Region_NOUS.
  	?URI_Code_Region_NOUS owl:sameAs ?URI_Code_Region
  SERVICE<http://localhost:3030/datas_loic>{
    	?c dbo:code ?URI_Code_Region .
    	?c frapo:BudgetedAmount ?valeur_budget.
-	?c dbo:year ?annee
+    ?c dbo:percentage "0"^^xsd:boolean.
+	?c dbo:year ?annee.
  	FILTER(?annee > "2000"^^xsd:gYear)  
  }
-FILTER(?year > "2000")
+FILTER(?annee > "2000"^^xsd:gYear)
 }
-GROUP BY ?year
-ORDER BY ?year
-LIMIT 25
+GROUP BY  ?annee
+ORDER BY  ?annee
+LIMIT 50
