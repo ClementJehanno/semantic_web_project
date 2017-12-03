@@ -7,15 +7,13 @@ PREFIX rdf: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX igeo: <http://rdf.insee.fr/def/geo#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
-SELECT ?year (SUM(?effIng) AS ?nb_ing) (SUM(?effDut) AS ?nb_dut)
+SELECT ?year (SUM(distinct ?effIng) AS ?nb_ing) (SUM(distinct ?effDut) AS ?nb_dut)
 WHERE
 {
     ?x dbo:formationYear ?year.
     ?x ex:effectif_ing ?effIng.
     ?x ex:effectif_dut ?effDut
-  FILTER(?year > "2005")
-  
-  
+  FILTER(?year > "2005"^^xsd:gYear)
 }
 GROUP BY ?year
 ORDER BY ?year
