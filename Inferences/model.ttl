@@ -1,12 +1,13 @@
 @prefix ex: <http://ex.org/a#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
-@prefix dbo:<http://dbpedia.org/ontology/>.
-@prefix foaf: <http://xmlns.com/foaf/spec/>.
+@prefix dbo:    <http://dbpedia.org/ontology/>.
+@prefix foaf:   <http://xmlns.com/foaf/spec/>.
 @prefix schema: <http://schema.org/>.
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-@prefix igeo: <http://rdf.insee.fr/def/geo#>.
-@prefix owl: <http://www.w3.org/2002/07/owl#>.
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix igeo:   <http://rdf.insee.fr/def/geo#>.
+@prefix owl:    <http://www.w3.org/2002/07/owl#>.
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix vcard:  <http://www.w3.org/2006/vcard/ns#>.
 
 foaf:gender a rdf:Property;
         rdfs:domain   foaf:Agent;
@@ -27,8 +28,11 @@ igeo:nom  a                 owl:DatatypeProperty ;
         rdfs:range          rdfs:Literal ;
         rdfs:subPropertyOf  rdfs:label .
 
-ex:hasRegion    rdfs:range igeo:Region;
+ex:hasRegion    rdfs:range  vcard:region;
                 rdfs:domain schema:dataset.      
+
+ex:hasEducation rdfs:range  schema:EducationalOrganization.
+
 
 ex:effectif_ing rdf:type owl:DatatypeProperty;
                 rdfs:range xsd:nonNegativeInteger;

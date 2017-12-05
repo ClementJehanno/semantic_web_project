@@ -7,14 +7,15 @@ PREFIX rdf: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX igeo: <http://rdf.insee.fr/def/geo#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdfs: <https://www.w3.org/TR/rdf-schema/#>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
 
 CONSTRUCT {
   #mapping
 
   #Table principale
   ?URI_Record a schema:dataset;
-    ex:has ?URI_EduOrganization;
-    ex:has ?URI_Student;
+    ex:hasEducation ?URI_EduOrganization;
+    ex:hasStudent ?URI_Student;
     ex:hasRegion ?URI_Region;
     dbo:year ?annee.
     
@@ -31,7 +32,7 @@ CONSTRUCT {
     foaf:gender ?sexe_de_l_etudiant.
 
   #Region + liens region avec autres dataset
-  ?URI_Region_CPR a igeo:nom;
+  ?URI_Region_CPR rdf:type vcard:region;
     igeo:subdivisionDirecte ?niveau_geo;
     igeo:codeRegion ?reg_id;
     igeo:nom ?URI_Region_CPR;

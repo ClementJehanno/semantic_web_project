@@ -8,5 +8,8 @@
 @prefix igeo: 	<http://rdf.insee.fr/def/geo#> .
 @prefix owl: 	<http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: 	<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vcard: 	<http://www.w3.org/2006/vcard/ns#> .
 
-[ruleTypeRegion: (?URI_Record ex:hasRegion ?URI_Region) -> (?URI_Region rdf:type igeo:Region)]
+[ruleTypeRegion: (?URI_Record ex:hasRegion ?URI_Region) -> (?URI_Region rdf:type vcard:region)]
+
+[ruleStudentIsPerson: (?URI_Record ex:hasEducation ?Education) -> (?Education rdfs:label schema:EducationalOrganization)]
