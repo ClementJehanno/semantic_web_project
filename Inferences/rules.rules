@@ -12,4 +12,4 @@
 
 [ruleTypeRegion: (?URI_Record ex:hasRegion ?URI_Region) -> (?URI_Region rdf:type vcard:region)]
 
-[ruleStudentIsPerson: (?URI_Record ex:hasEducation ?Education) -> (?Education rdfs:label schema:EducationalOrganization)]
+[ruleOrganisation: (?URI_Record ex:hasEducation ?Education) -> (?Education rdfs:label schema:EducationalOrganization)]
