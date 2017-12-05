@@ -27,6 +27,9 @@ igeo:nom  a                 owl:DatatypeProperty ;
         rdfs:range          rdfs:Literal ;
         rdfs:subPropertyOf  rdfs:label .
 
+ex:hasRegion    rdfs:range igeo:Region;
+                rdfs:domain schema:dataset.      
+
 ex:effectif_ing rdf:type owl:DatatypeProperty;
                 rdfs:range xsd:nonNegativeInteger;
                 rdfs:subPropertyOf ex:effectif_etu.

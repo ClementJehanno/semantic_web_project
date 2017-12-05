@@ -39,7 +39,7 @@ WHERE {
 
   BIND (URI(CONCAT("https://ex.org/nous/region/", REPLACE(?geo_nom, " ","_"))) AS ?URI_Region_NOUS) .
 
-  BIND (xsd:gYear(?rentree) AS ?annee)
+  
 
   
   BIND ((STRAFTER(?geo_id, "R")) AS ?codereg)
@@ -52,4 +52,5 @@ WHERE {
   BIND (xsd:integer(?effectif_ing) AS ?EFFECTIF_ING)
   BIND (xsd:integer(?effectif_dut) AS ?EFFECTIF_DUT)
   BIND (xsd:integer(?effectif) AS ?EFFECTIF_TOT)
+  BIND (xsd:gYear(?rentree) AS ?annee)
 }

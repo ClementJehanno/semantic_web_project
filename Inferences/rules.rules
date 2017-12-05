@@ -9,7 +9,4 @@
 @prefix owl: 	<http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: 	<http://www.w3.org/2000/01/rdf-schema#> .
 
-
-[ruleTypeEffectif: (?a dbo:numberOfStudents ?effectif) -> (?effectif rdf:type xsd:nonNegativeInteger)] 
-
-[ruleTypeEtudiant: (?a rdfs:subPropertyOf ex:effectif_etu) (?a rdf:type owl:DatatypeProperty) -> (?a rdfs:domain schema:dataset)]
+[ruleTypeRegion: (?URI_Record ex:hasRegion ?URI_Region) -> (?URI_Region rdf:type igeo:Region)]
