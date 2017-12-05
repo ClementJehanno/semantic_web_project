@@ -1,0 +1,19 @@
+PREFIX igeo: <http://rdf.insee.fr/def/geo#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX schema: <http://schema.org/>
+
+
+SELECT DISTINCT ?URI_REGION_HIPPO ?URI_Region_NOUS
+WHERE {
+  ?a a schema:dataset.
+  ?a igeo:nom ?URI_Region_NOUS.
+  ?URI_Region_NOUS owl:sameAs ?URI_REGION_HIPPO
+  SERVICE<http://localhost:3030/data_hippolyte>{
+    ?b a dbo:Statistic;
+    	gn:name ?URI_REGION_HIPPO
+  }
+}
+LIMIT 25

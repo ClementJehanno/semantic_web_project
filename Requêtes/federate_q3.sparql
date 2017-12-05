@@ -1,0 +1,44 @@
+PREFIX ex: <http://ex.org/a#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dbo:<http://dbpedia.org/ontology/>
+PREFIX foaf: <http://xmlns.com/foaf/spec/>
+PREFIX schema: <http://schema.org/>
+PREFIX rdf: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX igeo: <http://rdf.insee.fr/def/geo#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX frapo: <http://purl.org/cerif/frapo/>
+PREFIX  gn: <http://www.geonames.org/ontology#>
+PREFIX  dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dbp: <http://dbpedia.org/property/>
+
+SELECT DISTINCT ?cpr_reg ?cpr_ann (SUM(distinct ?effTot) AS ?nb_et) (COUNT(distinct ?y) AS ?nb_per) (SUM(distinct ?loic_amt) AS ?amt_budget) 
+WHERE
+{
+	?x igeo:nom ?cpr_reg.
+	?x igeo:codeRegion ?cpr_c_reg.
+	?x dbo:numberOfStudents ?effTot .
+    ?x dbo:formationYear ?cpr_ann.
+
+    SERVICE<http://localhost:3030/data_hipp>{
+    	?y gn:name ?hip_reg.
+    	?hip_reg owl:sameAs ?cpr_reg.
+ 		?y dbo:year ?hip_ann.
+ 		?y dbo:alias "Enseignement superieur".
+  		FILTER (EXISTS{?y dbo:sex ?exist})
+
+    }.
+   
+    SERVICE<http://localhost:3030/data_loic>{
+    	?z dbo:code ?loic_c_reg.
+        ?loic_c_reg owl:sameAs ?cpr_c_reg.
+		?z frapo:appliesFor "Equipement de laboratoires".
+		?z frapo:BudgetedAmount ?loic_amt.
+		?z dbo:percentage "0"^^xsd:boolean.
+    	?z dbo:year ?loic_ann
+  }.
+  FILTER(?cpr_ann = xsd:gYear(?hip_ann)).
+  FILTER(?cpr_ann = ?loic_ann).
+  FILTER(?loic_ann = xsd:gYear(?hip_ann))
+}
+GROUP BY ?cpr_reg ?cpr_ann ?hip_reg ?hip_ann ?loic_c_reg ?loic_ann
+ORDER BY ?cpr_reg ?cpr_ann

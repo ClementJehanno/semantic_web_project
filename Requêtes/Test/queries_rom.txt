@@ -1,0 +1,93 @@
+PREFIX ex: <http://ex.org/a#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dbo:<http://dbpedia.org/ontology/>
+PREFIX foaf: <http://xmlns.com/foaf/spec/>
+PREFIX schema: <http://schema.org/>
+PREFIX rdf: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX igeo: <http://rdf.insee.fr/def/geo#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX frapo: <http://purl.org/cerif/frapo/>
+
+SELECT DISTINCT ?nom_cpr ?nom_iv
+WHERE
+{
+    ?x igeo:codeRegion ?y .
+  	?x igeo:nom ?nom_cpr .
+    SERVICE<http://localhost:3030/data_ivan>{
+    	?t frapo:hasCode ?v .
+    	?v owl:sameAs ?y .
+    	?t frapo:hasLocation ?nom_iv
+  }
+}
+
+-------------------------------------------------------------
+PREFIX ex: <http://ex.org/a#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dbo:<http://dbpedia.org/ontology/>
+PREFIX foaf: <http://xmlns.com/foaf/spec/>
+PREFIX schema: <http://schema.org/>
+PREFIX rdf: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX igeo: <http://rdf.insee.fr/def/geo#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX frapo: <http://purl.org/cerif/frapo/>
+
+SELECT DISTINCT ?nom_cpr ?nom_iv (SUM(distinct ?val) AS ?amount) (SUM(distinct ?effTot) AS ?nb_etu) 
+WHERE
+{
+    ?x igeo:codeRegion ?y .
+  	?x igeo:nom ?nom_cpr .
+    ?x ex:dbo:numberOfStudents ?effTot.
+    SERVICE<http://localhost:3030/data_ivan>{
+    	?t dbo:Place ?v .
+    	?v frapo:hasCode ?n .
+    	?n owl:sameAs ?y .
+    	?n frapo:hasLocation ?nom_iv .
+    	?t frapo:BudgetedAmount ?val
+  }
+}
+GROUP BY ?nom_cpr ?nom_iv
+
+-------------------------------------
+SELECT DISTINCT ?x (SUM(distinct ?s) AS ?amount)
+WHERE
+{
+   
+    	?t dbo:Place ?v .
+        ?v frapo:hasCode ?x .
+  		?t frapo:BudgetedAmount ?s
+  		
+}
+GROUP BY ?x
+----------------------------------------------------
+PREFIX ex: <http://ex.org/a#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dbo:<http://dbpedia.org/ontology/>
+PREFIX foaf: <http://xmlns.com/foaf/spec/>
+PREFIX schema: <http://schema.org/>
+PREFIX rdf: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX igeo: <http://rdf.insee.fr/def/geo#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX frapo: <http://purl.org/cerif/frapo/>
+
+SELECT DISTINCT ?g ?y (SUM(distinct ?effTot) AS ?nb_etu) (SUM(distinct ?s) AS ?amount)
+WHERE
+{
+   	
+    ?m dbo:numberOfStudents ?effTot .
+    ?m igeo:codeRegion  ?u .
+    ?m igeo:nom ?g .
+    ?m dbo:formationYear ?y .
+    SERVICE<http://localhost:3030/data_ivan>{
+    	?t dbo:Place ?v .
+        ?v frapo:hasCode ?x .
+        ?x owl:sameAs ?u .
+  		?t frapo:BudgetedAmount ?s .
+        ?t frapo:hasDeliveryDate ?j
+  }
+    
+}
+GROUP BY ?g ?y
+ORDER BY ?g ?y
+
+-- j'suis bête si je tri par année y'a plus de sum x) donc soit je prend par année sans sum soit je prend tout mais sans année
+le sum est ieux j'pense :p

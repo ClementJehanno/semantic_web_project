@@ -1,0 +1,29 @@
+PREFIX ex: <http://ex.org/a#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dbo:<http://dbpedia.org/ontology/>
+PREFIX foaf: <http://xmlns.com/foaf/spec/>
+PREFIX schema: <http://schema.org/>
+PREFIX rdf: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX igeo: <http://rdf.insee.fr/def/geo#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX frapo: <http://purl.org/cerif/frapo/>
+
+SELECT DISTINCT ?reg ?ann (SUM(distinct ?effTot) AS ?nb_etu) (SUM(distinct ?amt) AS ?amount)
+WHERE
+{
+   	
+    ?x dbo:numberOfStudents ?effTot .
+    ?x igeo:codeRegion  ?c_reg .
+    ?x igeo:nom ?reg .
+    ?x dbo:formationYear ?ann .
+    SERVICE<http://localhost:3030/data_ivan>{
+    	?y dbo:Place ?zone .
+        ?zone frapo:hasCode ?iv_reg .
+        ?iv_reg owl:sameAs ?c_reg .
+  		?y frapo:BudgetedAmount ?amt .
+        ?y frapo:hasDeliveryDate ?iv_ann
+  }.
+  FILTER(?ann = ?iv_ann)
+}
+GROUP BY ?reg ?iv_reg ?ann ?iv_ann
+ORDER BY ?reg ?ann
